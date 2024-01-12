@@ -1,0 +1,12 @@
+body{
+    background: pink;
+}
+
+h1{
+    color: rgb(15, 216, 199);
+    text-align: center;
+    font-size: 80px;
+}
+.card{
+background: rgb(241, 153, 241);
+}

@@ -1,15 +1,41 @@
-import React from "react";
-import rigoImage from "../../img/rigo-baby.jpg";
+import React, { useEffect, useContext } from "react";
 import "../../styles/home.css";
+import Card from "../component/card";
+import { Context } from "../store/appContext"
+import Buttons from "../component/buttons";
+import { Link } from "react-router-dom";
 
-export const Home = () => (
-	<div className="text-center mt-5">
-		<h1>Hello Rigo!</h1>
-		<p>
-			<img src={rigoImage} />
-		</p>
-		<a href="#" className="btn btn-success">
-			If you see this green button, bootstrap is working
-		</a>
-	</div>
-);
+export const Home = () => {
+	const { store, actions } = useContext(Context)
+
+	useEffect(() => {
+		actions.getPersonajes("https://rickandmortyapi.com/api/character")
+		console.log("Personajes", store.personajes)
+	}, [])
+	return (
+		<>
+			<h1>Rick and Morty Series</h1>
+			<Buttons/>
+			<div className="container">
+				<div className="row">
+					{store.personajes.map((item, index) => {
+						return (
+							<div className="col-3 pb-3">
+								<Link to={"/single/"+ item.id} >
+									<Card
+										img={item.image}
+										title={item.name}
+										text={item.status}
+										buttonUrl={"https://getbootstrap.com/"}
+										buttonLabel={"Add to Favorites"}
+									/>
+								</Link>
+
+							</div>)
+					})}
+
+				</div>
+			</div>
+		</>
+	);
+}
