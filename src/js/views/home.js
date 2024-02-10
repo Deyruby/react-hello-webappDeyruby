@@ -21,16 +21,12 @@ export const Home = () => {
 					{store.personajes.map((item, index) => {
 						return (
 							<div className="col-3 pb-3">
-								<Link to={"/single/"+ item.id} >
 									<Card
 										img={item.image}
 										title={item.name}
 										text={item.status}
-										buttonUrl={"https://getbootstrap.com/"}
-										buttonLabel={"Add to Favorites"}
+										id={item.id}
 									/>
-								</Link>
-
 							</div>)
 					})}
 

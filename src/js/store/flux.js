@@ -6,6 +6,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			personajes: [],
 			personaje: {},
 			infor: {},
+			addFavorites:[],
 
 		},
 		actions: {
@@ -42,11 +43,22 @@ const getState = ({ getStore, getActions, setStore }) => {
 					console.log(error));
 			},
 
-			/* const handleNext =() =>{
+			addtoFavorites: (name) =>{
+				console.log(name)
+			const favoritos = 	getStore().addFavorites
+			favoritos.push(name)
+			setStore({addFavorites : favoritos })
+			},
+
+			removeFavorites: (deleteFavorites) => {
+				const {addFavorites} = getStore()
+				const updateFavorites = addFavorites.filter((favorites)=> favorites.id !== deleteFavorites.id)
+				setStore({addFavorites: updateFavorites})
 
 			}
- */
 
+
+			
 		}
 
 	}
