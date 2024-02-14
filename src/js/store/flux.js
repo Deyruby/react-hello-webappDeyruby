@@ -1,3 +1,4 @@
+import { element } from "prop-types";
 import { useState } from "react";
 
 const getState = ({ getStore, getActions, setStore }) => {
@@ -6,7 +7,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			personajes: [],
 			personaje: {},
 			infor: {},
-			addFavorites:[],
+			addFavorites: [],
 
 		},
 		actions: {
@@ -23,7 +24,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					return response.json()
 				}).then((data) => {
 					setStore({ personajes: data.results })
-					setStore( {infor: data.info})
+					setStore({ infor: data.info })
 				}).catch((error) =>
 					console.log(error));
 			},
@@ -43,26 +44,42 @@ const getState = ({ getStore, getActions, setStore }) => {
 					console.log(error));
 			},
 
-			addtoFavorites: (name) =>{
-				console.log(name)
-			const favoritos = 	getStore().addFavorites
-			favoritos.push(name)
-			setStore({addFavorites : favoritos })
+			addtoFavorites: (name) => {
+				const favoritos = getStore().addFavorites
+				if (favoritos.length == 0){
+					favoritos.push(name)
+					
+				}
+				else{
+                    
+					let find = false;
+					for (let i = 0; i < favoritos.length; i++) {
+						if (favoritos[i] == name) {
+							console.log("NO ENCONTRO EL NOMBRE")
+							find = true;
+							break;
+				
+						}
+						
+					}
+					if (find == false){
+						favoritos.push(name)
+					}
+				}
+				setStore({ addFavorites: favoritos })
 			},
 
 			removeFavorites: (deleteFavorites) => {
-				const {addFavorites} = getStore()
-				const updateFavorites = addFavorites.filter((favorites)=> favorites.id !== deleteFavorites.id)
-				setStore({addFavorites: updateFavorites})
+				const updateFavorites = getStore().addFavorites
+				const newUpdate = updateFavorites.filter((element) => element !== deleteFavorites)
+				setStore({ addFavorites: newUpdate })
 
-			}
+			},
 
 
-			
+
 		}
 
-	}
-};
-
-
+   }
+}
 export default getState;
